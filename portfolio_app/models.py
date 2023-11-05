@@ -23,4 +23,28 @@ class Musician(models.Model):
     email = models.CharField("Email", max_length=200)
     main_instrument = models.CharField(max_length=200, choices=INSTS)
 
+    def get_absolute_url(self):
+        return reverse('musician-detail', args=[str(self.id)])
+
+    #Define default String to return the name for representing the Model object."
+    def __str__(self):
+        return self.name
+
+
+class Piece(models.Model):
+    TYPES = (
+        ('CR', 'Concert/Performance Recording'),
+        ('OS', 'Original Song'),
+        ('CS', 'Cover Song'),
+        ('O', 'Other')
+    )
+    title = models.CharField(max_length=200)
+    genre = models.CharField(max_length=200)
+    piece_type = models.CharField(max_length=200, choices=TYPES)
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, default = None)
     
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return reverse("piece-detail", args=[str(self.id)])

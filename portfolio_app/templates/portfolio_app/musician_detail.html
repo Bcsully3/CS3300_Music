@@ -1,0 +1,10 @@
+{% extends 'portfolio_app/base_template.html' %}
+
+{% block content %}
+<h1>Musician Name: {{ musician.name }}</h1>
+
+<p><strong>Email:</strong> {{ musician.email }}</p>
+<p><strong>Instrument:</strong> {{ musician.main_instrument }}</p>
+<p style="padding: 10px;"> <a href="{% url 'update-musician' musician.id %}" class="btn btn-warning">Update Musician</a></p>
+
+{% endblock %}

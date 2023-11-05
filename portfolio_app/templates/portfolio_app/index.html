@@ -1,0 +1,20 @@
+<!-- inherit from base.html -->
+{% extends 'portfolio_app/base_template.html' %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<h1>Home</h1>
+
+<ul class="list-group">
+{% for i in pieces_active %}
+<li class="list-group-item">"{{i.title}}" by {{i.musician.name}}
+<!--<p><strong>Portfolio:</strong></p> -->
+<a class="btn btn-primary" href="{{ i.get_absolute_url }}" role="button">View</a>
+</li>
+
+
+{% endfor %}
+</ul>
+<p>  <a style="padding: 10px" class="btn btn-primary" href="{% url 'create-piece' 1 %}" role="button">New</a>
+</p>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'portfolio_app/base_template.html' %}
+
+{% block content %}
+<h1>Musician List</h1>
+{% if musician_list %}
+<ul>
+{% for Musician in musician_list %}
+<li>
+<a href="{{ Musician.get_absolute_url }}">{{ Musician.name }}</a>
+</li>
+
+{% endfor %}
+</ul>
+{% else %}
+<p>There are no Musicians registered.</p>
+{% endif %}
+{% endblock %}

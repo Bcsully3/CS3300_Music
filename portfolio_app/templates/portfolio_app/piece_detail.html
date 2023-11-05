@@ -1,0 +1,13 @@
+{% extends 'portfolio_app/base_template.html' %}
+
+{% block content %}
+<h1>Piece Title: {{ piece.name }}</h1>
+
+<p><strong>Musician:</strong> {{ piece.musician.name }}</p>
+<p><strong>Genre:</strong> {{ piece.genre }}</p>
+<p><strong>Type:</strong> {{ piece.piece_type }}</p>
+
+<p style="padding: 10px;"> <a href="{% url 'update-piece' piece.id %}" class="btn btn-warning">Update Piece</a></p>
+<p style="padding: 10px;"> <a href="{% url 'delete-piece' piece.id %}" class="btn btn-danger">Delete Piece</a></p>
+
+{% endblock %}

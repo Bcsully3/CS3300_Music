@@ -1,11 +1,16 @@
 from django.forms import ModelForm
 from .models import *
 
-#create class for project form
-# class ProjectForm(ModelForm):
-#     class Meta:
-#         model = Project
-#         fields =('title', 'description')
+class MusicianForm(ModelForm):
+    class Meta:
+        model = Musician
+        fields =('name', 'email', 'main_instrument')
+
+class PieceForm(ModelForm):
+    class Meta:
+        model = Piece
+        fields =('title', 'genre', 'piece_type')
+
 
 # class PortfolioForm(ModelForm):
 #     class Meta:
