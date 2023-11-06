@@ -40,7 +40,7 @@ def updatePiece(request, piece_id):
 
     if request.method == "POST":
         
-        form = PieceForm(request.POST, instance=piece)
+        form = PieceForm(request.POST, request.FILES, instance=piece)
         
         if form.is_valid(): # if form is valid, save new update and redirect to portfolio detail page
             
@@ -64,7 +64,7 @@ def createPiece(request, musician_id):
         project_data = request.POST.copy()
         project_data['musicain_id'] = musician_id
 
-        form = PieceForm(project_data)
+        form = PieceForm(project_data, request.FILES)
         if form.is_valid():
             # Save the form without committing to the database
             piece = form.save(commit=False)

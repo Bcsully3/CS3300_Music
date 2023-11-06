@@ -42,7 +42,7 @@ class Piece(models.Model):
     genre = models.CharField(max_length=200)
     piece_type = models.CharField(max_length=200, choices=TYPES)
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, default = None)
-    mp3_file = models.FileField(upload_to='music/mp3/', null=True)
+    mp3_file = models.FileField(upload_to='music/mp3/', default='music/mp3/default_song.mp3')
 
 
     def __str__(self):

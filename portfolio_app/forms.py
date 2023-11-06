@@ -9,7 +9,7 @@ class MusicianForm(ModelForm):
 class PieceForm(ModelForm):
     class Meta:
         model = Piece
-        fields =('title', 'genre', 'piece_type', 'musician', 'mp3_file')
+        fields =('title', 'genre', 'piece_type', 'mp3_file')
 
 
 # class PortfolioForm(ModelForm):
