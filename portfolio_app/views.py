@@ -54,25 +54,30 @@ def updatePiece(request, piece_id):
 
 
 
-def createPiece(request, piece_id):
+def createPiece(request, musician_id):
+
     form = PieceForm()
-    piece = Piece.objects.get(pk=piece_id)
+    musician = Musician.objects.get(pk=musician_id)
 
     if request.method == 'POST':
         # Create a new dictionary with form data and portfolio_id
         project_data = request.POST.copy()
-        project_data['piece_id'] = piece_id
+        project_data['musicain_id'] = musician_id
 
         form = PieceForm(project_data)
         if form.is_valid():
             # Save the form without committing to the database
-            musician = form.save(commit=False)
+            piece = form.save(commit=False)
             # Set the portfolio relationship
-            musician.piece = piece
-            musician.save()
+            piece.musician = musician
+            piece.save()
 
             # Redirect back to the portfolio detail page
-            return redirect('piece-detail', piece_id)
+            return redirect('musician-detail', musician_id)
+
+    context = {'form': form}
+    return render(request, 'portfolio_app/piece_form.html', context)
+
 
 
 def deletePiece(request, piece_id):
@@ -95,6 +100,12 @@ class MusicianListView(generic.ListView):
     model = Musician
 class MusicianDetailView(generic.DetailView):
     model = Musician
+
+    def get_context_data(self, **kwargs):
+        context = super(MusicianDetailView, self).get_context_data(**kwargs)
+        pieces = Piece.objects.filter(musician_id=self.object)
+        context["pieces"] = pieces
+        return context
 
 class PieceListView(generic.ListView):
     model = Piece

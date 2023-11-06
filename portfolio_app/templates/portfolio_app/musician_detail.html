@@ -4,7 +4,23 @@
 <h1>Musician Name: {{ musician.name }}</h1>
 
 <p><strong>Email:</strong> {{ musician.email }}</p>
-<p><strong>Instrument:</strong> {{ musician.main_instrument }}</p>
+<p><strong>Instrument:</strong> {{ musician.get_main_instrument_display }}</p>
 <p style="padding: 10px;"> <a href="{% url 'update-musician' musician.id %}" class="btn btn-warning">Update Musician</a></p>
+
+<h3>{{ musician.name }}'s pieces: </h3>
+
+{% if pieces %}
+
+{% for piece in pieces %}
+<div style="padding: 15px; border: 2px solid #000;">
+    <strong>{{ piece.title }}</strong>
+    <a class="btn btn-primary" href="{{ piece.get_absolute_url }}" role="button">View</a>
+</div>
+{% endfor %}
+{% endif %}
+
+<div style="padding: 10px">
+    <a style="padding: 10px" class="btn btn-success" href="{% url 'create-piece' musician.id %}" role="button">Add Piece</a>
+</div>
 
 {% endblock %}

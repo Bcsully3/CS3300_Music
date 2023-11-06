@@ -7,8 +7,8 @@
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit" name="Submit" class="btn btn-warning" value="Update Musician">
-    <a class="btn btn-primary" href="{% url 'musician-detail' musician.pk %}" role="button">Back</a>
+    <input type="submit" name="Submit" class="btn btn-success" value="Create Piece">
+    <a class="btn btn-primary" href="{% url 'index' musician.pk %}" role="button">Back</a>
 </form>
 
 {% endblock %}
