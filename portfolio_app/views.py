@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.views import generic
 from .models import *
 from .forms import *
+from django.contrib import messages
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -94,6 +96,25 @@ def deletePiece(request, piece_id):
             return redirect("piece-detail", pk=piece.portfolio.pk)
 
     return render(request, "portfolio_app/piece_delete.html", {"piece": piece}) # Confirmation if request is not POST
+
+
+def registerPage(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='musician')
+            user.groups.add(group)
+            musician = Musician.objects.create(username=username)
+            musician.save
+
+            messages.success(request, 'Account was created for ' + username)
+            return redirect('login')
+    context ={'form':form}
+    return render(request, 'registration/register.html', context)
+
 
 
 class MusicianListView(generic.ListView):

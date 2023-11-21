@@ -19,6 +19,7 @@ class Musician(models.Model):
         ('O', "Other")
     )
 
+    username = models.CharField(max_length=15, default="username")
     name = models.CharField(max_length=200)
     email = models.CharField("Email", max_length=200)
     main_instrument = models.CharField(max_length=200, choices=INSTS)
