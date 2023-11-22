@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 class Musician(models.Model):
 
@@ -19,10 +20,11 @@ class Musician(models.Model):
         ('O', "Other")
     )
 
-    username = models.CharField(max_length=15, default="username")
-    name = models.CharField(max_length=200)
-    email = models.CharField("Email", max_length=200)
-    main_instrument = models.CharField(max_length=200, choices=INSTS)
+    
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField("name", max_length=100)
+    email = models.CharField("Email", max_length=100)
+    main_instrument = models.CharField(max_length=100, choices=INSTS)
 
     def get_absolute_url(self):
         return reverse('musician-detail', args=[str(self.id)])

@@ -6,6 +6,9 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+from .decorators import allowed_users
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -15,7 +18,8 @@ def index(request):
     print("active portfolio query set", pieces_active)
     return render( request, 'portfolio_app/index.html', {'pieces_active':pieces_active})
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['musician_group'])
 def updateMusician(request, musician_id):
     
     musician = get_object_or_404(Musician, pk=musician_id) # get the project
@@ -34,8 +38,8 @@ def updateMusician(request, musician_id):
 
         return render(request, "portfolio_app/musician_update.html", {"form": form, "musician": musician})
 
-
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['musician_group'])
 def updatePiece(request, piece_id):
     
     piece = get_object_or_404(Piece, pk=piece_id) # get the project
@@ -56,6 +60,8 @@ def updatePiece(request, piece_id):
 
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['musician_group'])
 def createPiece(request, musician_id):
 
     form = PieceForm()
@@ -81,7 +87,8 @@ def createPiece(request, musician_id):
     return render(request, 'portfolio_app/piece_form.html', context)
 
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['musician_group'])
 def deletePiece(request, piece_id):
 
     piece = get_object_or_404(Piece, pk=piece_id) # attempt to get the project, or return 404 if failed
@@ -104,22 +111,34 @@ def registerPage(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data.get('username')
-            group = Group.objects.get(name='musician')
+            newusername = form.cleaned_data.get('username')
+            group = Group.objects.get(name='musician_group')
             user.groups.add(group)
-            musician = Musician.objects.create(username=username)
+            musician = Musician.objects.create(user = user)
             musician.save
 
-            messages.success(request, 'Account was created for ' + username)
+            messages.success(request, 'Account was created for ' + newusername)
             return redirect('login')
     context ={'form':form}
     return render(request, 'registration/register.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['musician_group'])
+def userPage(request):
+    musician = request.user.musician
+    form = MusicianForm(instance=musician)
+    print('musician', musician)
+    if request.method == 'POST':
+        form = MusicianForm(request.POST, request.FILES, instance=musician)
+        if form.is_valid():
+            form.save()
+    context = {'form':form}
+    return render(request, 'portfolio_app/user.html', context)
 
 class MusicianListView(generic.ListView):
     model = Musician
-class MusicianDetailView(generic.DetailView):
+class MusicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Musician
 
     def get_context_data(self, **kwargs):
@@ -128,7 +147,7 @@ class MusicianDetailView(generic.DetailView):
         context["pieces"] = pieces
         return context
 
-class PieceListView(generic.ListView):
+class PieceListView(LoginRequiredMixin, generic.ListView):
     model = Piece
-class PieceDetailView(generic.DetailView):
+class PieceDetailView(LoginRequiredMixin, generic.DetailView):
     model = Piece

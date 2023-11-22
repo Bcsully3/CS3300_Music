@@ -14,6 +14,7 @@ urlpatterns = [
     path('musician/<int:musician_id>/create_piece/', views.createPiece, name='create-piece'),
     path("pieces/<int:piece_id>/delete_piece/", views.deletePiece, name="delete-piece"),
     path('accounts/register/', views.registerPage, name = 'register_page'),
+    path('user/', views.userPage, name='user_page'),
 
 ]   
 

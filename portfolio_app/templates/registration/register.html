@@ -1,11 +1,25 @@
 {% extends 'portfolio_app/base_template.html' %}
 
 {% block content %}
-  <h2>UCCS Student Portfolio Registration</h2>
+  <h2>Musician Registration</h2>
 
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+
+    <label for="{{ form.name.id_for_label }}">Name:</label>
+    {{ form.name }}
+    {{ form.name.errors }}
+
+    <label for="{{ form.email.id_for_label }}">Email:</label>
+    {{ form.email }}
+    {{ form.email.errors }}
+
+    <label for="{{ form.main_instrument.id_for_label }}">Main Instrument:</label>
+    {{ form.main_instrument }}
+    {{ form.main_instrument.errors }}
+
+
     <input type="submit" name="Create User" />
   </form>
   {{form.errors}}
