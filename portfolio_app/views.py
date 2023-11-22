@@ -106,20 +106,22 @@ def deletePiece(request, piece_id):
 
 
 def registerPage(request):
-    form = CreateUserForm()
+    user_form = CreateUserForm()
+    musician_form = MusicianForm()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            newusername = form.cleaned_data.get('username')
+        user_form = CreateUserForm(request.POST)
+        musician_form = MusicianForm(request.POST)
+        if user_form.is_valid() and musician_form.is_valid():
+            user = user_form.save()
+            musician = musician_form.save(commit=False)
+            musician.user = user
+            musician.save()
+            newusername = user_form.cleaned_data.get('username')
             group = Group.objects.get(name='musician_group')
             user.groups.add(group)
-            musician = Musician.objects.create(user = user)
-            musician.save
-
             messages.success(request, 'Account was created for ' + newusername)
             return redirect('login')
-    context ={'form':form}
+    context = {'user_form': user_form, 'musician_form': musician_form}
     return render(request, 'registration/register.html', context)
 
 

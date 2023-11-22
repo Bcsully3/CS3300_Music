@@ -22,8 +22,8 @@ class Musician(models.Model):
 
     
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    name = models.CharField("name", max_length=100)
-    email = models.CharField("Email", max_length=100)
+    name = models.CharField("Musician/Stage Name", max_length=100)
+    email = models.CharField("Email address for contacting", max_length=100)
     main_instrument = models.CharField(max_length=100, choices=INSTS)
 
     def get_absolute_url(self):
