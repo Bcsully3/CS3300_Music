@@ -144,7 +144,7 @@ def userPage(request):
 
 class MusicianListView(generic.ListView):
     model = Musician
-class MusicianDetailView(LoginRequiredMixin, generic.DetailView):
+class MusicianDetailView(generic.DetailView):
     model = Musician
 
     def get_context_data(self, **kwargs):
@@ -153,7 +153,7 @@ class MusicianDetailView(LoginRequiredMixin, generic.DetailView):
         context["pieces"] = pieces
         return context
 
-class PieceListView(LoginRequiredMixin, generic.ListView):
+class PieceListView(generic.ListView):
     model = Piece
-class PieceDetailView(LoginRequiredMixin, generic.DetailView):
+class PieceDetailView(generic.DetailView):
     model = Piece
