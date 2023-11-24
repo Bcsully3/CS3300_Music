@@ -97,7 +97,7 @@ def deletePiece(request, piece_id):
         if request.POST.get("confirm") == "yes": # delete confirmation and redirect to portfolio detail page
 
             piece.delete()
-            return redirect("piece-detail", pk=piece.pk)
+            return redirect("index")
 
         elif request.POST.get("cancel") == "yes": # If the user cancels deletion, return to portfolio detail page
             return redirect("piece-detail", pk=piece.portfolio.pk)
