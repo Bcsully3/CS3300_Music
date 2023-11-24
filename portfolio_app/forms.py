@@ -20,3 +20,7 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
+class LoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'id': 'id_username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'id_password'}))
+

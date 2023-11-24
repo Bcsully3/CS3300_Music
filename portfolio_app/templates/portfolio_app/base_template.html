@@ -13,7 +13,7 @@
 
 <body style="margin: 1%;">
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-sm bg-body-tertiary">
 <div class="container-fluid">
 <img src= "{% static 'images/piano.png' %}" width="70px">
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -23,13 +23,13 @@
 <a class="nav-link" href="{% url 'index' %}">Home</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="{% url 'musicians' %}">Musicians</a>
+<a class="nav-link" href="{% url 'musicians' %}" id="id_musicians">Musicians</a>
 </li>
 <li class="nav-item">
 {% if user.is_authenticated %} 
-<a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout as {{user}}</a>
+<a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}" id="logout">Logout as {{user}}</a>
 {% else %}
-<a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+<a class="nav-link" href="{% url 'login' %}?next={{ request.path }}" id="login">Login</a>
 {% endif %}
 </li>
 </ul>

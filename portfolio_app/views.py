@@ -138,6 +138,10 @@ def userPage(request):
     context = {'form':form}
     return render(request, 'portfolio_app/user.html', context)
 
+
+
+
+
 class MusicianListView(generic.ListView):
     model = Musician
 class MusicianDetailView(LoginRequiredMixin, generic.DetailView):

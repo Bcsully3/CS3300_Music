@@ -5,7 +5,7 @@
 
 <p><strong>Email:</strong> {{ musician.email }}</p>
 <p><strong>Instrument:</strong> {{ musician.get_main_instrument_display }}</p>
-<p style="padding: 10px;"> <a href="{% url 'update-musician' musician.id %}" class="btn btn-warning">Update Musician</a></p>
+<p style="padding: 10px;"> <a href="{% url 'update-musician' musician.id %}" class="btn btn-warning" id="update">Update Musician</a></p>
 
 <h3>{{ musician.name }}'s pieces: </h3>
 
@@ -20,7 +20,7 @@
 {% endif %}
 
 <div style="padding: 10px">
-    <a style="padding: 10px" class="btn btn-success" href="{% url 'create-piece' musician.id %}" role="button">Add Piece</a>
+    <a style="padding: 10px" class="btn btn-success" href="{% url 'create-piece' musician.id %}" role="button" id="add_piece">Add Piece</a>
 </div>
 
 {% endblock %}
