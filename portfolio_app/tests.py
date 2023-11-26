@@ -78,6 +78,8 @@ class ViewMusician(LiveServerTestCase):
         view_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'view')))
         view_link.click()
 
+        ###   UPDATE
+
         #click on piece update
         update_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'update')))
         update_link.click()
@@ -91,6 +93,8 @@ class ViewMusician(LiveServerTestCase):
         submit_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'submit_update')))
         submit_link.click()
 
+        ##### DELETE
+        
         #click on delete piece and confirm
         delete_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'delete')))
         delete_link.click()
