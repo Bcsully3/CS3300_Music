@@ -12,7 +12,7 @@
     Your browser does not support the audio element.
 </audio>
 
-<p style="padding: 10px;"> <a href="{% url 'update-piece' piece.id %}" class="btn btn-warning">Update Piece</a></p>
-<p style="padding: 10px;"> <a href="{% url 'delete-piece' piece.id %}" class="btn btn-danger">Delete Piece</a></p>
+<p style="padding: 10px;"> <a href="{% url 'update-piece' piece.id %}" class="btn btn-warning" id="update">Update Piece</a></p>
+<p style="padding: 10px;"> <a href="{% url 'delete-piece' piece.id %}" class="btn btn-danger" id="delete">Delete Piece</a></p>
 
 {% endblock %}

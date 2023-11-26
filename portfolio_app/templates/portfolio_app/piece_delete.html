@@ -6,7 +6,7 @@
 <!-- confirm deletion button -->
 <form method="post" action="{% url 'delete-piece' piece.id %}">
     {% csrf_token %}
-    <button type="submit">Confirm</button>
+    <button type="submit" id="confirm">Confirm</button>
     <a href="{% url 'piece-detail' piece.pk %}">Cancel</a>
     <input type="hidden" name="confirm" value="yes">
 </form>

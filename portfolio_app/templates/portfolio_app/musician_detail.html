@@ -14,7 +14,7 @@
 {% for piece in pieces %}
 <div style="padding: 15px; border: 2px solid #000;">
     <strong>{{ piece.title }}</strong>
-    <a class="btn btn-primary" href="{{ piece.get_absolute_url }}" role="button">View</a>
+    <a class="btn btn-primary" href="{{ piece.get_absolute_url }}" role="button" id="view">View</a>
 </div>
 {% endfor %}
 {% endif %}

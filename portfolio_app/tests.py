@@ -4,8 +4,9 @@ from .models import *
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
+
 
 
 
@@ -45,7 +46,7 @@ class ViewMusician(LiveServerTestCase):
         self.browser=driver
     def tearDown(self):
         self.browser.quit()
-    def test_musician_view(self):
+    def test_add_update_delete_piece(self):
         self.browser.get("http://127.0.0.1:8000/")
 
         musicians_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'id_musicians')))
@@ -54,12 +55,52 @@ class ViewMusician(LiveServerTestCase):
         musician_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'test name')))
         musician_link.click()
 
-        update_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'update')))
         add_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'add_piece')))
+        add_link.click()
 
-        self.assertIsNotNone(update_link)
-        self.assertIsNotNone(add_link)
+        title_box = self.browser.find_element(By.ID,'title_id')
+        genre_box = self.browser.find_element(By.ID, 'genre_id')
+        mp3_box = self.browser.find_element(By.ID, "mp3_file_id")
 
+        # Interact with the "piece_type" dropdown using its id attribute
+        piece_type_dropdown = Select(self.browser.find_element(By.ID, "piece_type_id"))
+
+        # Select a value from the dropdown (replace "Your Piece Type" with the actual value)
+        piece_type_dropdown.select_by_visible_text("Other")
+        title_box.send_keys("Test Title")
+        genre_box.send_keys("Test Genre")
+        mp3_box.send_keys("C:/Users/brend/Downloads/Oli Parker - Havana (Unofficial Music Video).mp3")
+        
+        submit_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'submit')))
+        submit_link.click()
+
+        #back on musician detail view, click on piece view
+        view_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'view')))
+        view_link.click()
+
+        #click on piece update
+        update_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'update')))
+        update_link.click()
+
+        #change genre
+
+        genre_box = self.browser.find_element(By.ID, 'genre_id')
+        genre_box.send_keys("Test Genre 2")
+
+        #submit update
+        submit_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'submit_update')))
+        submit_link.click()
+
+        #click on delete piece and confirm
+        delete_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'delete')))
+        delete_link.click()
+
+        confirm_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'confirm')))
+        confirm_button.click()
+
+        #make sure it returns to home page
+        home = self.browser.find_element(By.ID, 'home')
+        self.assertIsNotNone(home)
 
 
 class HomepageTests(TestCase):

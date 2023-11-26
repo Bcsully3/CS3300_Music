@@ -13,7 +13,13 @@ class MusicianForm(ModelForm):
 class PieceForm(ModelForm):
     class Meta:
         model = Piece
-        fields =('title', 'genre', 'piece_type', 'mp3_file')
+        fields = ('title', 'genre', 'piece_type', 'mp3_file')
+        widgets = {
+            'title': forms.TextInput(attrs={'id': 'title_id'}),
+            'genre': forms.TextInput(attrs={'id': 'genre_id'}),
+            'piece_type': forms.Select(attrs={'id': 'piece_type_id'}),
+            'mp3_file': forms.ClearableFileInput(attrs={'id': 'mp3_file_id'}),
+        }
 
 class CreateUserForm(UserCreationForm):
     class Meta:
